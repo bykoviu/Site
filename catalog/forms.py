@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 import datetime  # for checking renewal date range.
+from django.contrib.auth.models import User
 
 from django import forms
 
@@ -23,3 +24,18 @@ class RenewBookForm(forms.Form):
 
         # Remember to always return the cleaned data.
         return data
+
+
+class RegisterUserForm(forms.ModelForm):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ('username', 'password', 'email')
+
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password2']:
+            raise ValidationError('Passwords don\'t match.')
+        return cd['password2']

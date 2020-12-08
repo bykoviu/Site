@@ -15,21 +15,22 @@
 <body>
 
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
+      <h5 class="my-0 mr-md-auto font-weight-normal">Library</h5>
+
       <nav class="my-2 my-md-0 mr-md-3">
-        <li><a class="p-2 text-dark" href="{% url 'index' %}">Главная</a></li>
-        <li><a class="p-2 text-dark" href="{% url 'books' %}">Каталог книг</a></li>
-         <li><a class="p-2 text-dark" href="{% url 'authors' %}">Авторы</a></li>
+        <a class="p-2 text-dark" href="{% url 'index' %}">Главная</a>
+        <a class="p-2 text-dark" href="{% url 'books' %}">Каталог книг</a>
+         <a class="p-2 text-dark" href="{% url 'authors' %}">Авторы</a>
 
       </nav>
       {% if user.is_authenticated %}
-     <li>User: {{ user.get_username }}</li>
-     <li><a class="p-2 text-dark" href="{% url 'my-borrowed' %}">Взятые мноюкниги</a></li>
-     <li><a class="btn btn-outline-primary" href="{% url 'logout'%}?next={{request.path}}">Выход</a></li>
-   {% else %}
-     <li><a class="btn btn-outline-primary"href="{% url 'login'%}?next={{request.path}}">Войти</a></li>
 
-        <a class="btn btn-outline-primary" href="#">Регистрация</a>
+     <a class="p-2 text-dark" href="{% url 'my-borrowed' %}">Взятые мною книги</a>
+     <a class="btn btn-outline-primary" href="{% url 'logout'%}?next={{request.path}}">Выход</a>
+   {% else %}
+     <a class="btn btn-outline-primary"href="{% url 'login'%}?next={{request.path}}">Войти</a>
+
+        <a class="btn btn-outline-primary" href="{% url 'register'%}">Регистрация</a>
     {% endif %}
     </div>
 
@@ -61,7 +62,7 @@
      <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
    {% endif %} 
   </ul>-->
-  
+  <p>User: {{ user.get_username }}</p>
    {% if user.is_staff %}
    <hr />
    <ul class="sidebar-nav">
